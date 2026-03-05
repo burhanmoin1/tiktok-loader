@@ -1,9 +1,8 @@
-import { decodeJwt, getRolesFromPayload } from '$lib/auth/jwt';
+import { decodeJwt } from '$lib/auth/jwt';
 import type { Cookies } from '@sveltejs/kit';
 
 export type User = {
 	username: string;
-	roles: string[];
 };
 
 export function getUserFromCookies(cookies: Cookies): User | null {
@@ -14,10 +13,8 @@ export function getUserFromCookies(cookies: Cookies): User | null {
 	if (!payload) return null;
 
 	const username = payload.username as string | undefined;
-	const roles = getRolesFromPayload(payload);
 
 	return {
-		username: username || 'User',
-		roles
+		username: username || 'User'
 	};
 }

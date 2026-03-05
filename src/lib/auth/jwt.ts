@@ -17,18 +17,3 @@ export function decodeJwt(token: string): Record<string, unknown> | null {
 		return null;
 	}
 }
-
-export function getRolesFromPayload(payload: Record<string, unknown> | null): string[] {
-	if (!payload) return [];
-
-	const maybeRoles = (payload.roles ?? payload.role ?? null) as unknown;
-	if (Array.isArray(maybeRoles) && maybeRoles.every((r) => typeof r === 'string')) {
-		return maybeRoles as string[];
-	}
-
-	if (typeof maybeRoles === 'string') {
-		return [maybeRoles];
-	}
-
-	return [];
-}
